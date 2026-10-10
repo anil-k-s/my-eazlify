@@ -287,7 +287,7 @@ a {
 }
 
 .card-top {
-    top: 78px;
+    top: 0px;
     right: -5px
 }
 
@@ -507,30 +507,37 @@ a {
 }
 
 .about-visual {
-    min-height: 400px;
-    background: #e9ddd2;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  min-height: auto;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #f5efe9;
 }
 
-.about-visual:before,
-.about-visual:after {
+.about-visual::before,
+.about-visual::after {
     content: "";
     position: absolute;
+    z-index: 0;
     border: 1px solid #d3b5a2;
     border-radius: 50%;
-    width: 340px;
-    height: 340px
+    pointer-events: none;
 }
 
-.about-visual:after {
+.about-visual::before {
+    width: 340px;
+    height: 340px;
+}
+
+.about-visual::after {
     width: 250px;
-    height: 250px
+    height: 250px;
 }
 
 .about-monogram {
@@ -541,14 +548,11 @@ a {
 }
 
 .about-caption {
-    position: absolute;
-    bottom: 18px;
-    left: 20px;
-    background: var(--paper);
-    padding: 13px 17px;
-    font-size: 12px;
-    line-height: 1.4;
-    z-index: 2
+  position: static;
+  padding: 14px 18px;
+  text-align: center;
+  background: #fffaf6;
+  border-radius: 10px;
 }
 
 .about-copy h2 {
@@ -873,7 +877,9 @@ a {
 
     .portrait-frame {
         height: 330px;
-        width: 260px
+        width: 260px;
+        position: relative;
+        overflow: visible;
     }
 
     .orbit-one {
@@ -1002,6 +1008,7 @@ a {
     .section-wrap {
         width: calc(100% - 48px)
     }
+
 }
 
 @media(max-width:400px) {
@@ -1028,4 +1035,98 @@ a {
         object-position: center top;
         border-radius: inherit;
     }
+}
+
+/* Reduce the hero portrait size */
+.portrait-frame {
+    width: min(100%, 350px);
+    height: 400px;
+    margin-inline: auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+}
+
+/* Fit the photo inside the frame */
+.profile-photo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: inherit;
+}
+
+/* Keep the floating cards from covering too much of the photo */
+.card-top {
+    top: 20px;
+    right: -30px;
+}
+
+.card-bottom {
+    bottom: 60px;
+    left: -50px;
+}
+
+@media (max-width: 768px) {
+    .portrait-frame {
+        width: min(85vw, 320px);
+        height: 425px;
+    }
+
+    .card-top {
+        top: 10px;
+        right: -5px;
+    }
+
+    .card-bottom {
+        bottom: 25px;
+        left: -5px;
+    }
+
+
+    .about-profile-photo {
+        display: block;
+        width: min(100%, 340px);
+        aspect-ratio: 1 / 1;
+        height: auto;
+        object-fit: cover;
+        object-position: center top;
+        border-radius: 50%;
+        border: 3px solid #e3cdbd;
+        margin: 0 auto;
+    }
+
+
+    .about-visual {
+        position: relative;
+        isolation: isolate;
+    }
+
+}
+
+/* Remove decorative circles from About photo */
+.about-visual::before,
+.about-visual::after {
+    display: none !important;
+}
+
+/* Keep photo inside rounded frame */
+.about-visual {
+    overflow: hidden;
+    border-radius: 18px;
+}
+
+/* Proper photo display */
+
+.about-profile-photo {
+  display: block;
+  width: min(100%, 340px);
+  aspect-ratio: 1 / 1;
+  height: auto;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 50%;
+  border: 3px solid #e3cdbd;
+  margin: 0 auto;
 }
