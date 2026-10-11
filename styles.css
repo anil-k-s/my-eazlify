@@ -1154,3 +1154,247 @@ a {
     height: 40px;
   }
 }
+
+/* ===== Eazlify contact popup ===== */
+.contact-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.contact-modal.is-open {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.contact-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 25, 35, 0.68);
+  backdrop-filter: blur(4px);
+}
+
+.contact-modal-panel {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 680px);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  padding: clamp(24px, 5vw, 44px);
+  background: #f5f0e9;
+  color: #111111;
+  border: 1px solid #dfcfc0;
+  border-radius: 18px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25);
+  transform: translateY(12px);
+  transition: transform 0.2s ease;
+}
+
+.contact-modal.is-open .contact-modal-panel {
+  transform: translateY(0);
+}
+
+.contact-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #182b3b;
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.contact-modal-close:hover {
+  background: #e9ded2;
+}
+
+.contact-modal-panel .section-kicker {
+  margin: 0 48px 10px 0;
+  color: #c96b4e;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.contact-modal-panel h2 {
+  margin: 0 40px 12px 0;
+  font-size: clamp(32px, 5vw, 46px);
+  line-height: 1.1;
+}
+
+.contact-modal-intro {
+  margin: 0 0 26px;
+  color: #8b6848;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.contact-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 20px;
+}
+
+.contact-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.contact-field-full {
+  grid-column: 1 / -1;
+}
+
+.contact-field label {
+  color: #171717;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.contact-field label span {
+  color: #c96b4e;
+}
+
+.contact-field input,
+.contact-field textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #ddcbbb;
+  border-radius: 8px;
+  background: #f7f2ec;
+  color: #171717;
+  font: inherit;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-field textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.contact-field input::placeholder,
+.contact-field textarea::placeholder {
+  color: #987754;
+  opacity: 1;
+}
+
+.contact-field input:focus,
+.contact-field textarea:focus {
+  border-color: #c96b4e;
+  box-shadow: 0 0 0 3px rgba(201, 107, 78, 0.14);
+}
+
+.contact-submit-btn {
+  margin-top: 22px;
+  padding: 15px 28px;
+  border: 0;
+  border-radius: 8px;
+  background: #c96b4e;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.contact-submit-btn:hover {
+  background: #b95b40;
+  transform: translateY(-1px);
+}
+
+.contact-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: wait;
+  transform: none;
+}
+
+.contact-form-status {
+  margin: 14px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.contact-form-status.is-success {
+  color: #237345;
+}
+
+.contact-form-status.is-error {
+  color: #b42318;
+}
+
+.contact-honeypot {
+  position: absolute !important;
+  left: -10000px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+
+body.contact-modal-open {
+  overflow: hidden;
+}
+
+@media (max-width: 560px) {
+  .contact-modal {
+    padding: 12px;
+  }
+
+  .contact-modal-panel {
+    max-height: calc(100vh - 24px);
+    padding: 26px 20px;
+    border-radius: 14px;
+  }
+
+  .contact-form-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .contact-field-full {
+    grid-column: auto;
+  }
+
+  .contact-submit-btn {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-modal,
+  .contact-modal-panel,
+  .contact-field input,
+  .contact-field textarea,
+  .contact-submit-btn {
+    transition: none;
+  }
+}
+.contact-privacy-note {
+  margin: 14px 0 0;
+  color: #806b58;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.contact-privacy-note a {
+  color: #b95b40;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
