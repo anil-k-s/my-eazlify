@@ -34,26 +34,34 @@ sections.forEach(section => observer.observe(section));
 
   let previousFocus = null;
 
-  function openContactModal(event) {
-    if (event) event.preventDefault();
+function openContactModal(event) {
+  if (event) event.preventDefault();
 
-    previousFocus = document.activeElement;
-    modal.classList.add("is-open");
-    modal.setAttribute("aria-hidden", "false");
-    document.body.classList.add("contact-modal-open");
+  previousFocus = document.activeElement;
 
-    window.setTimeout(() => nameInput.focus(), 50);
+  modal.inert = false;
+  modal.classList.add("is-open");
+  modal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("contact-modal-open");
+
+  window.setTimeout(() => nameInput.focus(), 50);
+}
+
+
+function closeContactModal() {
+  // Restore focus before hiding the modal from assistive technology.
+  if (previousFocus && typeof previousFocus.focus === "function") {
+    previousFocus.focus();
   }
 
-  function closeContactModal() {
-    modal.classList.remove("is-open");
-    modal.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("contact-modal-open");
+  modal.inert = true;
+  modal.classList.remove("is-open");
+  modal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("contact-modal-open");
 
-    if (previousFocus && typeof previousFocus.focus === "function") {
-      previousFocus.focus();
-    }
-  }
+  // Clear the reference after restoring focus.
+  previousFocus = null;
+}
 
   // Add data-open-contact to each button or link that opens the form.
   document.querySelectorAll("[data-open-contact]").forEach((trigger) => {
